@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3ec350edb51dae701cf9807bf4f83d8",
+    "content-hash": "8ee1f5d3a3867ddac93c3f0a641427bf",
     "packages": [
         {
             "name": "brick/math",
@@ -500,6 +500,56 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
+        },
+        {
+            "name": "ez-laravel/cookie-consent",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ez-laravel/cookie-consent.git",
+                "reference": "bddfada6ce77bfab87dae5cf5791e7e29dc7fc21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ez-laravel/cookie-consent/zipball/bddfada6ce77bfab87dae5cf5791e7e29dc7fc21",
+                "reference": "bddfada6ce77bfab87dae5cf5791e7e29dc7fc21",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "EZ\\CookieConsent\\Providers\\CookieConsentServiceProvider"
+                    ],
+                    "aliases": {
+                        "CookieConsent": "EZ\\CookieConsent\\Facades\\CookieConsentFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "EZ\\CookieConsent\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nick Verheijen",
+                    "email": "verheijen.webdevelopment@gmail.com"
+                }
+            ],
+            "description": "Easy Laravel Cookie Consent",
+            "support": {
+                "issues": "https://github.com/ez-laravel/cookie-consent/issues",
+                "source": "https://github.com/ez-laravel/cookie-consent/tree/v1.0.1"
+            },
+            "time": "2020-06-25T18:07:04+00:00"
         },
         {
             "name": "fruitcake/php-cors",

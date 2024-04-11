@@ -3,27 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cookie;
 
 class FormController extends Controller
 {
 
-    public function submitForm(Request $request)
+    public function showForm()
     {
-    $data = [
-        $request->input('name'),
-        $request->input('age'),
-        $request->input('sex'),
-    ];
+        $formData = request()->cookie('form_data') ?? [];
 
-    foreach ($questions as $question) {
-        $data[] = $request->input('rating_' . $question->id);
+        return view('frontend.test')->with('formData', $formData);
     }
 
-    $file = fopen(storage_path('app/data.csv'), 'a');
-    fputcsv($file, $data);
-    fclose($file);
+    public function storeInCookieFirstPage(Request $request)
+    {
+        $response = new Response('Formularul a fost trimis cu succes!');
 
-    return redirect()->back()->with('success', 'Formularul a fost trimis cu succes!');
+        $response->cookie('name', $request->input('name'));
+        $response->cookie('age', $request->input('age'));
+        $response->cookie('sex', $request->input('sex'));
+
+        for ($i = 1; $i <= 60; $i++) {
+            $response->cookie("rating_$i", $request->input("rating_$i"));
+        }
+
+        return $response;
+    }
+
+    public function storeInCookieSecondPage(Request $request)
+    {
+        $response = new Response('Formularul a fost trimis cu succes!');
+
+        for ($i = 61; $i <= 120; $i++) {
+            $response->cookie("rating_$i", $request->input("rating_$i"));
+        }
+
+        return $response;
+    }
+
+
+    public function submitForm(Request $request)
+    {
+       // Submit
     }
 }
 

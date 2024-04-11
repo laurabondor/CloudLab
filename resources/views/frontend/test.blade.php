@@ -41,17 +41,18 @@
                         <h5 class="mb-4 text-center">Introduceți informațiile solicitate mai jos</h5>
                         <!-- Formularul pentru introducerea datelor personale -->
                         <form action="/maketest/submit" method="post" class="custom-form contact-form" role="form">
+                            @csrf 
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-floating">
-                                        <input type="text" name="name" id="name" class="form-control" placeholder=" ">
+                                        <input type="text" name="name" id="name" class="form-control" placeholder=" " value="{{ request()->cookie('name') }}">
                                         <label for="name">Nume:</label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-floating">
-                                        <input type="number" name="age" id="age" class="form-control" placeholder=" ">
+                                        <input type="number" name="age" id="age" class="form-control" placeholder=" " value="{{ request()->cookie('age') }}">
                                         <label for="age">Vârstă:</label>
                                     </div>
                                 </div>
@@ -59,8 +60,8 @@
                                 <div class="col-lg-12 col-12 mb-4">
                                     <div class="form-floating">
                                         <select class="form-control" id="sex" name="sex">
-                                            <option value="male">Masculin</option>
-                                            <option value="female">Feminin</option>
+                                            <option value="male" {{ request()->cookie('sex') == 'male' ? 'selected' : '' }}>Masculin</option>
+                                            <option value="female" {{ request()->cookie('sex') == 'female' ? 'selected' : '' }}>Feminin</option>
                                         </select>
                                         <label for="sex">Sex:</label>
                                     </div>
@@ -126,7 +127,9 @@
                                     </li>
                                     <li class="page-item">
                                         @if ($questions->currentPage() == $questions->lastPage())
-                                            <button type="submit" class="btn custom-btn page-link">Trimite</button>
+                                            <a class="page-link btn custom-btn" href="/maketest/submit" aria-label="Submit">
+                                                <span aria-hidden="true">Trimite</span>
+                                            </a>
                                         @endif
                                     </li>
                                     <li class="page-item">
