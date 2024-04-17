@@ -22,6 +22,9 @@
 
         <link href="css/templatemo-topic-listing.css" rel="stylesheet">
 
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
     
     <body id="top">
@@ -30,65 +33,131 @@
 
         @include('frontend.navbar')
             
-            <header class="site-header d-flex flex-column justify-content-center align-items-center">
-                <div class="container">
-                    <div class="row justify-content-center align-items-center">
+        <header class="site-header d-flex flex-column justify-content-center align-items-center">
+            <div class="container">
+                <div class="row align-items-center">
 
-                        <div class="col-lg-5 col-12 mb-5">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Homepage</a></li>
+                    <div class="col-lg-5 col-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Homepage</a></li>
 
-                                    <li class="breadcrumb-item active" aria-current="page">Results</li>
-                                </ol>
-                            </nav>
-
-                            <h2 class="text-white">Results to <br> Big Five Test</h2>
-
-                        </div>
-
-                        <div class="col-lg-5 col-12">
-                            <div class="topics-detail-block bg-white shadow-lg">
-                                <img src="images/topics/undraw_Remote_design_team_re_urdx.png" class="topics-detail-block-image img-fluid">
-                            </div>
-                        </div>
-
+                                <li class="breadcrumb-item active" aria-current="page">Results</li>
+                            </ol>
+                        </nav>
+                        <h2 class="text-white">Results to <br> Big Five Test</h2>
                     </div>
+
                 </div>
-            </header>
+            </div>
+        </header>
 
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-            <section class="topics-detail-section section-padding" id="topics-detail">
-                <div class="container">
-                    <div class="row">
+        <section class="topics-detail-section section-padding" id="topics-detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 m-auto">
+                
+                    <h4>EXTRAVERSION - {{ $result->EXTRAVERSION }}%</h4>
+                    <p>Extraversion reflects people's tendency to be outgoing and social versus solitary and reserved.</p>
+                    <canvas id="extraversionChart" class="mx-auto my-4" width="600" height="300"></canvas>
 
-                        <div class="col-lg-8 col-12 m-auto">
-                            <h3 class="mb-4">Results</h3>
+                    <h4>AGREEABLENESS - {{ $result->AGREEABLENESS }}%</h4>
+                    <p>Agreeableness relates to a person's tendency to be compassionate and cooperative rather than suspicious and antagonistic towards others.</p>
+                    <canvas id="agreeablenessChart" class="mx-auto my-4" width="600" height="300"></canvas>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Nulla vel libero id lorem porttitor consequat vel in velit. Fusce laoreet sem quis dui dapibus, id maximus sem porta. Nulla aliquam fringilla nisi ac dapibus.</p>
+                    <h4>CONSCIENTIOUSNESS - {{ $result->CONSCIENTIOUSNESS }}%</h4>
+                    <p>Conscientiousness is about being responsible, dependable, and organized.</p>
+                    <canvas id="conscientiousnessChart" class="mx-auto my-4" width="600" height="300"></canvas>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce laoreet sem quis dui dapibus, id maximus sem porta. Nulla aliquam fringilla nisi ac dapibus.</p>
+                    <h4>NEUROTICISM - {{ $result->NEUROTICISM }}%</h4>
+                    <p>Neuroticism relates to emotional stability and impulse control.</p>
+                    <canvas id="neuroticismChart" class="mx-auto my-4" width="600" height="300"></canvas>
 
-                            <blockquote>
-                                Curabitur ut tellus eu dui eleifend fermentum. Alins yebwd dwdw
-                            </blockquote>
+                    <h4>OPENNESS - {{ $result->OPENNESS }}%</h4>
+                    <p>Openness involves creativity, curiosity, and a willingness to try new things.</p>
+                    <canvas id="opennessChart" class="mx-auto my-4" width="600" height="300"></canvas>
 
-                            <div class="row my-4">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <img src="images/businesswoman-using-tablet-analysis.jpg" class="topics-detail-block-image img-fluid">
-                                </div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var createBarChart = function(canvasId, labels, data) {
+                                var ctx = document.getElementById(canvasId).getContext('2d');
+                                if (!ctx) {
+                                    console.error("Canvas context not found for ID: " + canvasId);
+                                    return;
+                                }
 
-                                <div class="col-lg-6 col-md-6 col-12 mt-4 mt-lg-0 mt-md-0">
-                                    <img src="images/colleagues-working-cozy-office-medium-shot.jpg" class="topics-detail-block-image img-fluid">
-                                </div>
-                            </div>
+                                var chart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: 'Score',
+                                            data: data,
+                                            backgroundColor: [
+                                                '#FF6384',
+                                                '#36A2EB',
+                                                '#FFCE56',
+                                                '#4BC0C0',
+                                                '#FF9F40',
+                                                '#9966FF'
+                                            ],
+                                            borderColor: [
+                                                '#FF6384',
+                                                '#36A2EB',
+                                                '#FFCE56',
+                                                '#4BC0C0',
+                                                '#FF9F40',
+                                                '#9966FF'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: false,
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
 
-                            <p>Phasellus suscipit tellus eget metus convallis sollicitudin. Integer nec lacus vel ante rutrum viverra. Sed fermentum enim vitae nulla aliquam, a tincidunt quam malesuada.</p>
-                        </div>
+                                if (!chart) {
+                                    console.error("Chart creation failed for ID: " + canvasId);
+                                }
+                            };
 
-                    </div>
+                            var labels1 = ['Friendliness', 'Gregariousness', 'Assertiveness', 'ActivityLevel', 'ExcitementSeeking', 'Cheerfulness'];
+                            var data1 = [{{ $result->Friendliness }}, {{ $result->Gregariousness }}, {{ $result->Assertiveness }}, {{ $result->ActivityLevel }}, {{ $result->ExcitementSeeking }}, {{ $result->Cheerfulness }}];
+                            createBarChart('extraversionChart', labels1, data1);
+
+                            var labels2 = ['SelfEfficacy', 'Orderliness', 'Dutifulness', 'AchievementStriving', 'SelfDiscipline', 'Cautiousness'];
+                            var data2 = [{{ $result->SelfEfficacy }}, {{ $result->Orderliness }}, {{ $result->Dutifulness }}, {{ $result->AchievementStriving }}, {{ $result->SelfDiscipline }}, {{ $result->Cautiousness }}];
+                            createBarChart('conscientiousnessChart', labels2, data2);
+
+                            var labels3 = ['Anxiety', 'Anger', 'Depression', 'SelfConsciousness', 'Immoderation', 'Vulnerability'];
+                            var data3 = [{{ $result->Anxiety }}, {{ $result->Anger }}, {{ $result->Depression }}, {{ $result->SelfConsciousness }}, {{ $result->Immoderation }}, {{ $result->Vulnerability }}];
+                            createBarChart('neuroticismChart', labels3, data3);
+
+                            var labels4 = ['Imagination', 'ArtisticInterests', 'Emotionality', 'Adventurousness', 'Intellect', 'Liberalism'];
+                            var data4 = [{{ $result->Imagination }}, {{ $result->ArtisticInterests }}, {{ $result->Emotionality }}, {{ $result->Adventurousness }}, {{ $result->Intellect }}, {{ $result->Liberalism }}];
+                            createBarChart('opennessChart', labels4, data4);
+
+                            var labels5 = ['Trust', 'Morality', 'Altruism', 'Cooperation', 'Modesty', 'Sympathy'];
+                            var data5 = [{{ $result->Trust }}, {{ $result->Morality }}, {{ $result->Altruism }}, {{ $result->Cooperation }}, {{ $result->Modesty }}, {{ $result->Sympathy }}];
+                            createBarChart('agreeablenessChart', labels5, data5);
+                        });
+                    </script>
                 </div>
-            </section>
+            </div>
+        </div>
+        </section>
 
         </main>
 		
@@ -99,6 +168,5 @@
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
         <script src="js/custom.js"></script>
-
     </body>
 </html>

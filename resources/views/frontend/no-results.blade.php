@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>About Page</title>
+        <title>No Results Page</title>
 
         <!-- CSS FILES -->        
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,31 +24,25 @@
 
     </head>
     
-    <body class="topics-listing-page" id="top">
+    <body id="top">
 
         <main>
 
         @include('frontend.navbar')
-
+            
         <header class="site-header d-flex flex-column justify-content-center align-items-center">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
+                <div class="row align-items-center">
 
-                    <div class="col-lg-5 col-12 mb-5">
+                    <div class="col-lg-5 col-12">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/">Homepage</a></li>
 
-                                <li class="breadcrumb-item active" aria-current="page">About</li>
+                                <li class="breadcrumb-item active" aria-current="page">Results</li>
                             </ol>
                         </nav>
-                        <h2 class="text-white">About Page</h2>
-                    </div>
-
-                    <div class="col-lg-5 col-12">
-                        <div class="topics-detail-block bg-white shadow-lg">
-                            <img src="https://www.organimi.com/wp-content/uploads/2021/09/AdobeStock_231454651-scaled.jpeg" class="topics-detail-block-image img-fluid">
-                        </div>
+                        <h2 class="text-white">Results to <br> Big Five Test</h2>
                     </div>
 
                 </div>
@@ -58,32 +52,18 @@
         <section class="topics-detail-section section-padding" id="topics-detail">
             <div class="container">
                 <div class="row">
-
                     <div class="col-lg-8 col-12 m-auto">
+                        <h3 class="mb-4">Results</h3>
 
-                        <blockquote>
-                            About Big Five Personality Test based on the five dimensions of person
-                        </blockquote>
+                        <p>No results available. Please take the test to view your results.</p>
 
-                        <div class="row my-4">
-                            <div class="col-lg-6 col-md-6 col-12">
-                                <img src="images/businesswoman-using-tablet-analysis.jpg" class="topics-detail-block-image img-fluid">
-                            </div>
-
-                            <div class="col-lg-6 col-md-6 col-12 mt-4 mt-lg-0 mt-md-0">
-                                <img src="images/colleagues-working-cozy-office-medium-shot.jpg" class="topics-detail-block-image img-fluid">
-                            </div>
-                        </div>
-
-                        <p> The Big Five, also known as the Five-Factor Model, is a widely recognized framework in psychology that describes five broad dimensions of personality. These dimensions capture the most significant and meaningful variations in human personality traits. Here they are: Openness to Experience, Conscientiousness, Extraversion, Agreeableness and Neuroticism. </p>
                     </div>
-
                 </div>
             </div>
-        </section>  
+        </section>
 
         </main>
-
+		
         @include('frontend.footer')
 
         <!-- JAVASCRIPT FILES -->
@@ -91,6 +71,6 @@
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
         <script src="js/custom.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </body>
 </html>

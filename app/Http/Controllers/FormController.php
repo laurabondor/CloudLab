@@ -3,49 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Auth;
+use App\Services\DataProcessor;
 
 class FormController extends Controller
 {
+    protected $dataProcessor;
 
-    public function showForm()
+    public function __construct(DataProcessor $dataProcessor)
     {
-        $formData = request()->cookie('form_data') ?? [];
-
-        return view('frontend.test')->with('formData', $formData);
+        $this->dataProcessor = $dataProcessor;
     }
 
-    public function storeInCookieFirstPage(Request $request)
+    public function submitTest(Request $request)
     {
-        $response = new Response('Formularul a fost trimis cu succes!');
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'age' => 'required|integer|min:18',
+            'sex' => 'required|in:masculin,feminin',
+        ]);
 
-        $response->cookie('name', $request->input('name'));
-        $response->cookie('age', $request->input('age'));
-        $response->cookie('sex', $request->input('sex'));
+        $data = $request->all();
 
-        for ($i = 1; $i <= 60; $i++) {
-            $response->cookie("rating_$i", $request->input("rating_$i"));
+        $results = $this->dataProcessor->evaluate($data);
+
+        $user = Auth::user();
+        $resultModel = new Result([
+            'user_id' => $user->id,
+        ]);
+
+        foreach ($results as $result) {
+            foreach ($result as $trait => $value) {
+                $resultModel->{$trait} = $value;
+            }
         }
 
-        return $response;
-    }
+        $resultModel->save();
 
-    public function storeInCookieSecondPage(Request $request)
-    {
-        $response = new Response('Formularul a fost trimis cu succes!');
-
-        for ($i = 61; $i <= 120; $i++) {
-            $response->cookie("rating_$i", $request->input("rating_$i"));
-        }
-
-        return $response;
-    }
-
-
-    public function submitForm(Request $request)
-    {
-       // Submit
+        return redirect('/results')->with('success', 'Rezultatele au fost obtinute cu succes!');
     }
 }
-

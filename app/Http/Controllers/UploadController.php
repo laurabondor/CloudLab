@@ -12,10 +12,4 @@ class UploadController extends Controller
         $questions = Question::all(); 
         return view('frontend.test', compact('questions'));
     }
-
-    public function index()
-    {
-        $questions = Question::paginate(60); 
-        return view('frontend.test', compact('questions'));
-    }
 }

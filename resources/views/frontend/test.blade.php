@@ -24,7 +24,7 @@
                     <div class="col-lg-8 col-12">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Homepage</a></li>
+                                <li class="breadcrumb-item"><a href="/">Homepage</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Make Test</li>
                             </ol>
                         </nav>
@@ -33,63 +33,128 @@
                 </div>
             </div>
         </header>
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <section class="section-padding">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9 col-12 mt-3 mx-auto">
-                        @if ($questions->currentPage() == 1)
-                        <h5 class="mb-4 text-center">Introduceți informațiile solicitate mai jos</h5>
-                        <!-- Formularul pentru introducerea datelor personale -->
-                        <form action="/maketest/submit" method="post" class="custom-form contact-form" role="form">
+                        <!-- Form begins -->
+                        <form action="{{ route('submit.test') }}" method="post" class="custom-form contact-form" role="form">
                             @csrf 
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-floating">
-                                        <input type="text" name="name" id="name" class="form-control" placeholder=" " value="{{ request()->cookie('name') }}">
-                                        <label for="name">Nume:</label>
+                            <div id="section1"> 
+                                <h5 class="mb-4 text-center">Introduceți informațiile solicitate mai jos</h5>
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-floating">
+                                            <input type="text" name="name" id="name" class="form-control" placeholder=" " value="" required>
+                                            <label for="name">Nume:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-floating">
+                                            <input type="number" name="age" id="age" class="form-control" placeholder=" " value="" required>
+                                            <label for="age">Vârstă:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-12 mb-4">
+                                        <div class="form-floating">
+                                            <select class="form-control" id="sex" name="sex" required>
+                                                <option value="" disabled selected>Selectează sexul</option>
+                                                <option value="male">Masculin</option>
+                                                <option value="female">Feminin</option>
+                                            </select>
+                                            <label for="sex">Sex:</label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="form-floating">
-                                        <input type="number" name="age" id="age" class="form-control" placeholder=" " value="{{ request()->cookie('age') }}">
-                                        <label for="age">Vârstă:</label>
-                                    </div>
+                                <div class="col-lg-12 col-12 mt-4 mb-4 d-flex justify-content-end">
+                                    <button type="button" class="btn custom-border-btn" id="fillRandom">Completeaza aleator</button>
                                 </div>
 
-                                <div class="col-lg-12 col-12 mb-4">
-                                    <div class="form-floating">
-                                        <select class="form-control" id="sex" name="sex">
-                                            <option value="male" {{ request()->cookie('sex') == 'male' ? 'selected' : '' }}>Masculin</option>
-                                            <option value="female" {{ request()->cookie('sex') == 'female' ? 'selected' : '' }}>Feminin</option>
-                                        </select>
-                                        <label for="sex">Sex:</label>
+                                <div class="timeline-container">
+                                    <ul class="vertical-scrollable-timeline" id="vertical-scrollable-timeline">
+                                        <div class="list-progress">
+                                            <div class="inner"></div>
+                                        </div>
+                                        <!-- Single Topic -->
+                                        @foreach($questions->take(60) as $question)
+                                        <li>
+                                            <div class="icon-holder">
+                                                <i> Nr {{ $question->id }}</i>
+                                            </div>
+                                            <div class="custom-block custom-block-topics-listing bg-white shadow-lg mb-5">
+                                                <div class="d-flex">
+                                                    <div class="custom-block-topics-listing-info d-flex">
+                                                        <div>
+                                                            <h5 class="mb-2">{{ $question->text }}</h5>
+                                                            @for($i = 1; $i <= 5; $i++)
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" id="{{ $question->id }}_{{ $i }}" name="rating_{{ $question->id }}" value="{{ $i }}" required>
+                                                                <label class="form-check-label" for="{{ $question->id }}_{{ $i }}">
+                                                                    @if($i == 1)
+                                                                    Dezacord total
+                                                                    @elseif($i == 2)
+                                                                    Dezacord
+                                                                    @elseif($i == 3)
+                                                                    Neutru
+                                                                    @elseif($i == 4)
+                                                                    Acord
+                                                                    @else
+                                                                    Acord total
+                                                                    @endif
+                                                                </label>
+                                                            </div>
+                                                            @endfor
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                    <div class="col-lg-12 col-12">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center mb-0">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#" aria-label="Next">
+                                                        <span aria-hidden="true">Inainte</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        @endif
-                        <!-- Container pentru intrebari -->
-                        <div class="timeline-container">
-                            <ul class="vertical-scrollable-timeline" id="vertical-scrollable-timeline">
-                                <div class="list-progress">
-                                    <div class="inner"></div>
-                                </div>
-                                <!-- Single Topic -->
-                                @foreach($questions as $question)
-                                <li>
-                                    <div class="icon-holder">
-                                        <i> Nr {{ $question->id }}</i>
+
+                            <div id="section2" class="timeline-container">
+                                <ul class="vertical-scrollable-timeline" id="vertical-scrollable-timeline">
+                                    <div class="list-progress">
+                                        <div class="inner"></div>
                                     </div>
-                                    <div class="custom-block custom-block-topics-listing bg-white shadow-lg mb-5">
-                                        <div class="d-flex">
-                                            <div class="custom-block-topics-listing-info d-flex">
-                                                <div>
-                                                    <h5 class="mb-2">{{ $question->text }}</h5>
-                                                    <form action="/maketest/submit" method="post" class="d-flex flex-row justify-content-between">
+                                    <!-- Single Topic -->
+                                    @foreach($questions->slice(60) as $question)
+                                    <li>
+                                        <div class="icon-holder">
+                                            <i> Nr {{ $question->id }}</i>
+                                        </div>
+                                        <div class="custom-block custom-block-topics-listing bg-white shadow-lg mb-5">
+                                            <div class="d-flex">
+                                                <div class="custom-block-topics-listing-info d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">{{ $question->text }}</h5>
                                                         @for($i = 1; $i <= 5; $i++)
                                                         <div class="form-check form-check-inline">
-                                                            <input class="form-check-input" type="radio" id="{{ $question->id }}_{{ $i }}" name="rating_{{ $question->id }}" value="{{ $i }}">
+                                                            <input class="form-check-input" type="radio" id="{{ $question->id }}_{{ $i }}" name="rating_{{ $question->id }}" value="{{ $i }}" required>
                                                             <label class="form-check-label" for="{{ $question->id }}_{{ $i }}">
                                                                 @if($i == 1)
                                                                 Dezacord total
@@ -105,43 +170,31 @@
                                                             </label>
                                                         </div>
                                                         @endfor
-                                                    </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                
-                        <div class="col-lg-12 col-12">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item">
-                                        @if ($questions->previousPageUrl())
-                                            <a class="page-link" href="{{ $questions->previousPageUrl() }}" aria-label="Previous">
-                                                <span aria-hidden="true">Inapoi</span>
-                                            </a>
-                                        @endif
                                     </li>
-                                    <li class="page-item">
-                                        @if ($questions->currentPage() == $questions->lastPage())
-                                            <a class="page-link btn custom-btn" href="/maketest/submit" aria-label="Submit">
-                                                <span aria-hidden="true">Trimite</span>
-                                            </a>
-                                        @endif
-                                    </li>
-                                    <li class="page-item">
-                                        @if ($questions->nextPageUrl())
-                                            <a class="page-link" href="{{ $questions->nextPageUrl() }}" aria-label="Next">
-                                                <span aria-hidden="true">Inainte</span>
-                                            </a>
-                                        @endif
-                                    </li>
+                                    @endforeach
                                 </ul>
-                            </nav>
-                        </div>
+                                <div class="col-lg-12 col-12">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center mb-0">
+                                            <li class="page-item">    
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">Inapoi</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item">
+                                                <button type="submit" class="btn custom-btn-login" aria-label="Submit">
+                                                    Trimite
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>  
+                        </form>
                     </div>
                 </div>
             </div>
@@ -153,6 +206,42 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.sticky.js"></script>
     <script src="js/custom.js"></script>
-    <script src="js/click-scroll.js"></script>
+
+    <script>
+        const nextBtn = document.querySelector('[aria-label="Next"]');
+        const prevBtn = document.querySelector('[aria-label="Previous"]');
+
+        const section1 = document.getElementById('section1');
+        const section2 = document.getElementById('section2');
+
+        section2.style.display = 'none';
+
+        nextBtn.addEventListener('click', function() {
+            section1.style.display = 'none';
+            section2.style.display = 'block';
+        });
+
+        prevBtn.addEventListener('click', function() {
+            section1.style.display = 'block';
+            section2.style.display = 'none';
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const fillRandomBtn = document.getElementById('fillRandom');
+
+            fillRandomBtn.addEventListener('click', function () {
+                const questionsCount = 120;
+                
+                for (let i = 1; i <= questionsCount; i++) {
+                    const rating = Math.floor(Math.random() * 5) + 1;
+                    const radioBtn = document.querySelector(`input[name="rating_${i}"][value="${rating}"]`);
+                    
+                    if (radioBtn) {
+                        radioBtn.checked = true;
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
