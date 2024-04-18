@@ -27,12 +27,26 @@ Acest proiect folosește modelul Big Five pentru a evalua trăsăturile de perso
 
 ## Cum să rulezi proiectul
 
+### Descarca sau cloneaza proiectul
+
+1. **Descarcare**: Descarcă proiectul ca fișier ZIP de pe GitHub sau direct de pe terminal folosind `git clone`:
+    ```
+    git clone https://github.com/laurabondor/CloudLab.git
+    ```
+
+2. **Intrare în directorul proiectului**:
+    ```
+    cd CloudLab
+    ```
+    
+### Configurarea proiectului
+
 1. Instalează dependențele:
     ```bash
     composer install
     ```
 
-2. Copiază `.env.example` în `.env` și inlocuieste pentru DB_CONNECTION=sqlite in DB_CONNECTION=mysql apoi decomenteaza urmatoarele randuri si fa baza de date.
+2. Copiază `.env.example` în `.env` și inlocuieste pentru DB_CONNECTION=sqlite in DB_CONNECTION=mysql apoi decomenteaza urmatoarele randuri si creaza baza de date.
 
 3. Generează cheia de aplicatie:
     ```bash
