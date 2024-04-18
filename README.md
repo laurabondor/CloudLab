@@ -58,13 +58,6 @@ Acceseaza proiectul în browser la adresa primita in linia de comanda.
 
 ## Cum să testezi proiectul
 
-### Accesarea panoului de administrare(dashboard)
-
-Folosește următoarele date pentru a te conecta ca admin:
-
-- Email: `admin@gmail.com`
-- Parolă: `admin123`
-
 ### Accesarea rezultatelor ca utilizator
 
 Datorită unor probleme tehnice cu trimiterea formularului de pe pagina `maketest`, te rugăm să folosești utilizatorul de test pentru a vedea rezultatele preîncărcate.
@@ -73,3 +66,10 @@ Folosește următoarele date pentru a te conecta ca test user:
 
 - Email: `test@gmail.com`
 - Parolă: `test123`
+
+### Accesarea panoului de administrare(dashboard)
+
+Folosește următoarele date pentru a te conecta ca admin:
+
+- Email: `admin@gmail.com`
+- Parolă: `admin123`
