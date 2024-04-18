@@ -44,15 +44,14 @@ Acest proiect folosește modelul Big Five pentru a evalua trăsăturile de perso
     php artisan migrate --seed
     ```
 
-5. Porneste serverul de dezvoltare:
+5. Porneste serverul:
     ```bash
     php artisan serve
     ```
 
 Acceseaza proiectul în browser la adresa primita in linia de comanda.
 
-Daca primesti eroare cand navighezi pe o alta pagina, atunci ruleaza:
-
+- Daca primesti eroare cand navighezi pe o alta pagina, atunci ruleaza:
     ```bash
     npm run dev
     ```
@@ -62,13 +61,15 @@ Daca primesti eroare cand navighezi pe o alta pagina, atunci ruleaza:
 ### Accesarea panoului de administrare(dashboard)
 
 Folosește următoarele date pentru a te conecta ca admin:
-    - Email: `admin@gmail.com`
-    - Parolă: `admin123`
+
+- Email: `admin@gmail.com`
+- Parolă: `admin123`
 
 ### Accesarea rezultatelor ca utilizator
 
 Datorită unor probleme tehnice cu trimiterea formularului de pe pagina `maketest`, te rugăm să folosești utilizatorul de test pentru a vedea rezultatele preîncărcate.
 
 Folosește următoarele date pentru a te conecta ca test user:
-    - Email: `test@gmail.com`
-    - Parolă: `test123`
+
+- Email: `test@gmail.com`
+- Parolă: `test123`
