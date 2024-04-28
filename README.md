@@ -1,89 +1,89 @@
 # CloudLab - FIIPractic 2024
 Big Five Personality Test Laravel project
 
-## Descriere
+## Description
 
-Acest proiect folosește modelul Big Five pentru a evalua trăsăturile de personalitate ale utilizatorilor. Proiectul include un panou de administrare unde administratorii pot vedea și gestiona utilizatorii, precum și o interfață pentru utilizatori pentru a completa și a vedea rezultatele proprii.
+This project uses the Big Five model to assess users' personality traits. The project includes an admin panel where administrators can view and manage users, as well as a user interface for completing and viewing their own results.
 
-## Caracteristici principale
+## Features
 
-- **Test Big Five**: Utilizatorii pot completa testul Big Five pentru a evalua cinci trăsături majore de personalitate: Extraversion, Agreeableness, Conscientiousness, Neuroticism și Openness.
+- **Big Five Test**: Users can complete the Big Five test to evaluate five major personality traits: Extraversion, Agreeableness, Conscientiousness, Neuroticism, and Openness.
   
-- **Panou de administrare**: Un panou de administrare securizat unde administratorii pot vizualiza, adăuga și șterge utilizatori.
+- **Admin Panel**: A secure admin panel where administrators can view, add, and delete users.
   
-- **Autentificare**: Sistem de autentificare pentru utilizatori și administratori.
+- **Authentication**: Authentication system for users and administrators.
   
-- **Vizualizare Rezultate**: După completarea testului, utilizatorii pot vizualiza rezultatele proprii sub formă de grafice, oferindu-le o perspectivă vizuală asupra trăsăturilor lor de personalitate.
+- **Results Visualization**: After completing the test, users can view their results in the form of charts, providing them with a visual perspective on their personality traits.
 
-## Tehnologii folosite
+## Technologies Used
 
-- **Laravel**: Framework-ul PHP folosit pentru dezvoltarea backend-ului.
+- **Laravel**: The PHP framework used for backend development.
   
-- **Bootstrap**: Framework-ul CSS pentru stilizarea interfeței utilizator.
+- **Bootstrap**: The CSS framework for user interface styling.
   
-- **Chart.js**: Biblioteca JavaScript pentru generarea de grafice pentru afișarea rezultatelor.
+- **Chart.js**: The JavaScript library for generating charts to display results.
   
-- **MySQL**: Baza de date folosită pentru stocarea datelor utilizatorilor și rezultatelor testelor.
+- **MySQL**: The database used for storing user data and test results.
 
-## Cum să rulezi proiectul
+## How to Run the Project
 
-### Descarca sau cloneaza proiectul
+### Download or Clone the Project
 
-1. **Descarcare**: Descarcă proiectul ca fișier ZIP de pe GitHub sau direct de pe terminal folosind `git clone`:
+1. **Download**: Download the project as a ZIP file from GitHub or directly from the terminal using `git clone`:
     ```
     git clone https://github.com/laurabondor/CloudLab.git
     ```
 
-2. **Intrare în directorul proiectului**:
+2. **Navigate to the Project Directory**:
     ```
     cd CloudLab
     ```
     
-### Configurarea proiectului
+### Project Setup
 
-1. Instalează dependențele:
+1. Install dependencies:
     ```bash
     composer install
     ```
 
-2. Copiază `.env.example` în `.env` și inlocuieste pentru DB_CONNECTION=sqlite in DB_CONNECTION=mysql apoi decomenteaza urmatoarele randuri si creaza baza de date.
+2. Copy `.env.example` to `.env`, replace DB_CONNECTION=sqlite with DB_CONNECTION=mysql, then uncomment the following lines and create the database.
 
-3. Generează cheia de aplicatie:
+3. Generate the application key:
     ```bash
     php artisan key:generate
     ```
 
-4. Rulează migrările și semințele:
+4. Run migrations and seeds:
     ```bash
     php artisan migrate --seed
     ```
 
-5. Porneste serverul:
+5. Start the server:
     ```bash
     php artisan serve
     ```
 
-Acceseaza proiectul în browser la adresa primita in linia de comanda.
+Access the project in your browser at the address provided in the command line.
 
-- Daca primesti eroare cand navighezi pe o alta pagina, atunci ruleaza:
+- If you encounter an error when navigating to another page, then run:
     ```bash
     npm run dev
     ```
 
-## Cum să testezi proiectul
+## How to Test the Project
 
-### Accesarea rezultatelor ca utilizator
+### Accessing Results as a User
 
-Datorită unor probleme tehnice cu trimiterea formularului de pe pagina `maketest`, te rugăm să folosești utilizatorul de test pentru a vedea rezultatele preîncărcate.
+Due to technical issues with submitting the form on the `maketest` page, please use the test user to see the preloaded results.
 
-Folosește următoarele date pentru a te conecta ca test user:
+Use the following credentials to log in as a test user:
 
 - Email: `test@gmail.com`
-- Parolă: `test123`
+- Password: `test123`
 
-### Accesarea panoului de administrare(dashboard)
+### Accessing the Admin Panel(dashboard)
 
-Folosește următoarele date pentru a te conecta ca admin:
+Use the following credentials to log in as an admin:
 
 - Email: `admin@gmail.com`
-- Parolă: `admin123`
+- Password: `admin123`
